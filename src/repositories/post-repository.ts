@@ -32,7 +32,7 @@ class PostRepo {
         const isDeleted = await PostModel.findByIdAndDelete(id);
 
         if (!isDeleted) {
-            throw new Error('Пост не найден');
+            throw new Error();
         } else {
             return true;
         }

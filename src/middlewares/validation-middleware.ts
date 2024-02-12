@@ -4,7 +4,7 @@ export const validation = [
     check('username')
         .trim()
         .notEmpty()
-        .withMessage('Имя пользователя не может быть пустым'),
+        .withMessage('Почтовый адрес не может быть пустым'),
     check('password')
         .trim()
         .notEmpty()

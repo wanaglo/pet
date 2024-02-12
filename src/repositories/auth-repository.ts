@@ -3,29 +3,29 @@ import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 
 class AuthRepo {
-    async registration(username: string, password: string) {
-        const candidate = await UserModel.findOne({ username: username });
+    async registration(email: string, password: string) {
+        const candidate = await UserModel.findOne({ email: email });
 
         if (candidate)
-            throw new Error(`Пользователь с именем ${username} уже существует`);
+            throw new Error(`Пользователь с почтовым адресом ${email} уже существует`);
 
         const salt = await bcrypt.genSalt(8);
 
         const passHash = await bcrypt.hash(password, salt);
 
         const newUser = await UserModel.create({
-            username,
+            email,
             password: passHash,
         });
 
         if (newUser) return true;
     }
 
-    async login(username: string, password: string): Promise<string> {
-        const user = await UserModel.findOne({ username: username });
+    async login(email: string, password: string): Promise<string> {
+        const user = await UserModel.findOne({ email: email });
 
         if (!user)
-            throw new Error(`Пользователь с именем ${username} не найден`);
+            throw new Error(`Пользователь с почтовым адресом ${email} не найден`);
 
         const isValidPass = await bcrypt.compare(password, user.password);
 

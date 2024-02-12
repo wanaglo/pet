@@ -4,9 +4,9 @@ import authRepo from '../repositories/auth-repository';
 class AuthController {
     async registration(req: Request, res: Response<{ message: string }>) {
         try {
-            const { username, password } = req.body;
+            const { email, password } = req.body;
 
-            const isCreated = await authRepo.registration(username, password);
+            const isCreated = await authRepo.registration(email, password);
 
             if (isCreated)
                 res.json({ message: 'Пользователь успешно зарегистрирован' });
